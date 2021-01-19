@@ -55,7 +55,9 @@ public class Game {
 
     private void getMaleTask() {
         Random r = new Random();
+        int choose= r.nextInt()*100;
         if (config == PlayerConfig.ALCCLOTHED) {
+            if(chooseAlcClothed()==1)   // checks if Tasks needs to be delivered or different path -> e.g. shots
             System.out.println(softMale.get(r.nextInt(softMale.size())).getContent());
         }else if(config==PlayerConfig.ALCNAKED){
             System.out.println(hardMale.get(r.nextInt(hardMale.size())).getContent());
@@ -67,6 +69,7 @@ public class Game {
     private void getFemaleTask() {
         Random r = new Random();
         if (config == PlayerConfig.ALCCLOTHED) {
+            if(chooseAlcClothed()==1)  // checks if Tasks needs to be delivered or different path -> e.g. shots
             System.out.println(softFemale.get(r.nextInt(softFemale.size())).getContent());
         }else if(config==PlayerConfig.ALCNAKED){
             System.out.println(hardFemale.get(r.nextInt(hardFemale.size())).getContent());
@@ -75,15 +78,16 @@ public class Game {
 
     private int chooseAlcClothed() {
         Random r = new Random();
-        int rNumber = r.nextInt() * 100;
-        if (rNumber > 80) {
+        int rNumber = r.nextInt(100);
+        System.out.println("RNumber "+rNumber);
+        if (rNumber > 66) {
             //signals that main method needs to draw a Task
             return 1;
-        } else if (rNumber > 40) {
+        } else if (rNumber > 33) {
             System.out.println("Trinke einen Shot!");
             return 0;
 
-        } else {
+        } else{
 
             System.out.println("Ziehe ein Kleidungsstück aus");
             return 0;
