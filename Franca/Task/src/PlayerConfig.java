@@ -1,0 +1,3 @@
+public enum PlayerConfig {
+    ALCCLOTHED,ALCNAKED,NOALCCLOTHED,NOALCNAKED
+}
