@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,14 +9,16 @@ public class Game {
     PlayerConfig config = PlayerConfig.ALCCLOTHED;
     LinkedList<ThirdTask> softMale;
     LinkedList<ThirdTask> softFemale;
-    LinkedList<ThirdTask> hardMale;
-    LinkedList<ThirdTask> hardFemale;
+    LinkedList<HardcoreTask> hardMale;
+    LinkedList<HardcoreTask> hardFemale;
     TaskFiller tf;
 
     public Game() {
         tf = new TaskFiller();
-        softMale = tf.getMF()[0];
-        softFemale = tf.getMF()[1];
+        softMale = tf.getSoftMF()[1];
+        softFemale = tf.getSoftMF()[0];
+        hardFemale=tf.getHardMF()[0];
+        hardMale=tf.getHardMF()[1];
         start();
     }
 
@@ -55,12 +56,17 @@ public class Game {
 
     private void getMaleTask() {
         Random r = new Random();
-        int choose= r.nextInt()*100;
+        AbstractTask current;
         if (config == PlayerConfig.ALCCLOTHED) {
-            if(chooseAlcClothed()==1)   // checks if Tasks needs to be delivered or different path -> e.g. shots
-            System.out.println(softMale.get(r.nextInt(softMale.size())).getContent());
+            if(chooseAlcClothed()==1) { // checks if Tasks needs to be delivered or different path -> e.g. shots
+                current = softMale.get(r.nextInt(softMale.size()));
+                System.out.println(current.getContent());
+                checkOnce(current,0);
+            }
         }else if(config==PlayerConfig.ALCNAKED){
-            System.out.println(hardMale.get(r.nextInt(hardMale.size())).getContent());
+            current=hardMale.get(r.nextInt(hardMale.size()));
+            System.out.println(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
+            checkOnce(current,3);
         }
 
 
@@ -68,12 +74,43 @@ public class Game {
 
     private void getFemaleTask() {
         Random r = new Random();
+        AbstractTask current;
         if (config == PlayerConfig.ALCCLOTHED) {
             if(chooseAlcClothed()==1)  // checks if Tasks needs to be delivered or different path -> e.g. shots
-            System.out.println(softFemale.get(r.nextInt(softFemale.size())).getContent());
+            {
+                current=softFemale.get(r.nextInt(softFemale.size()));
+                System.out.println(current.getContent());
+                checkOnce(current,1);
+            }
+
         }else if(config==PlayerConfig.ALCNAKED){
-            System.out.println(hardFemale.get(r.nextInt(hardFemale.size())).getContent());
+            current=hardFemale.get(r.nextInt(hardFemale.size()));
+            System.out.println(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
+            checkOnce(current,3);
         }
+
+    }
+    private void checkOnce(AbstractTask check,int list){
+        if(check.isOnce()){
+            switch (list){
+                case(0):
+                    if(!softMale.isEmpty())
+                    softMale.remove(check);
+                case(1):
+                    if(!softFemale.isEmpty())
+                    softFemale.remove(check);
+                case(2):
+                    if(!hardMale.isEmpty())
+                    hardMale.remove(check);
+                case(3):
+                    if(!hardFemale.isEmpty())
+                    hardFemale.remove(check);
+            }
+        }
+
+    }
+    public void changeMode(PlayerConfig update){
+        config=update;
     }
 
     private int chooseAlcClothed() {
