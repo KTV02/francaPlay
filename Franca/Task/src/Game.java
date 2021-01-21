@@ -79,7 +79,6 @@ public class Game {
     private int chooseAlcClothed() {
         Random r = new Random();
         int rNumber = r.nextInt(100);
-        System.out.println("RNumber "+rNumber);
         if (rNumber > 66) {
             //signals that main method needs to draw a Task
             return 1;
