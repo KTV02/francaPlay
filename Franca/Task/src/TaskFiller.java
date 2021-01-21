@@ -39,24 +39,25 @@ public class TaskFiller {
 
                 if (arguments[1].equals("y"))
                     female = true;
-            }
-            if (arguments[2].equals("y")) {
-                male = true;
-            }
-            factor = Integer.parseInt(arguments[3]);
-            if (arguments[4].equals("y")) {
-                once = true;
-            }
-            contentCurrent = arguments[5];
-            System.out.println(arguments.length);
-            if (arguments.length == 6) {
-                ThirdTask temp = new ThirdTask(female, male, factor, once, contentCurrent);
-                taskList.add(temp);
-            }
-            if(arguments.length==7){
-                String duration= arguments[6];
-                HardcoreTask temp = new HardcoreTask(female, male, factor, once, contentCurrent,duration);
-                taskList.add(temp);
+
+                if (arguments[2].equals("y")) {
+                    male = true;
+                }
+                factor = Integer.parseInt(arguments[3]);
+                if (arguments[4].equals("y")) {
+                    once = true;
+                }
+                contentCurrent = arguments[5];
+                System.out.println(arguments.length);
+                if (arguments.length == 6) {
+                    ThirdTask temp = new ThirdTask(female, male, factor, once, contentCurrent);
+                    taskList.add(temp);
+                }
+                if (arguments.length == 7) {
+                    String duration = arguments[6];
+                    HardcoreTask temp = new HardcoreTask(female, male, factor, once, contentCurrent, duration);
+                    taskList.add(temp);
+                }
             }
 
 

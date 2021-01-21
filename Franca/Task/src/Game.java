@@ -12,8 +12,10 @@ public class Game {
     LinkedList<HardcoreTask> hardMale;
     LinkedList<HardcoreTask> hardFemale;
     TaskFiller tf;
+    GUI gui;
 
-    public Game() {
+    public Game(GUI g) {
+        gui = g;
         tf = new TaskFiller();
         softMale = tf.getSoftMF()[1];
         softFemale = tf.getSoftMF()[0];
@@ -81,12 +83,14 @@ public class Game {
             if(chooseAlcClothed()==1)  // checks if Tasks needs to be delivered or different path -> e.g. shots
             {
                 current=softFemale.get(r.nextInt(softFemale.size()));
+                gui.display(current.getContent());
                 System.out.println(current.getContent());
                 checkOnce(current,1);
             }
 
         }else if(config==PlayerConfig.ALCNAKED){
             current=hardFemale.get(r.nextInt(hardFemale.size()));
+            gui.display(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
             System.out.println(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
             checkOnce(current,3);
         }
@@ -125,11 +129,12 @@ public class Game {
             //signals that main method needs to draw a Task
             return 1;
         } else if (rNumber > 33) {
+            gui.display("Trinke einen Shot!");
             System.out.println("Trinke einen Shot!");
             return 0;
 
         } else{
-
+            gui.display("Ziehe ein Kleidungsstück aus");
             System.out.println("Ziehe ein Kleidungsstück aus");
             return 0;
 

@@ -15,7 +15,7 @@
           </grid>
         </constraints>
       </hspacer>
-      <component id="f2c9c" class="javax.swing.JButton" binding="maleWon" custom-create="true">
+      <component id="f2c9c" class="javax.swing.JButton" binding="maleLost" custom-create="true">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="10" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="100"/>
