@@ -21,7 +21,6 @@ public class Game {
         softFemale = tf.getSoftMF()[0];
         hardFemale=tf.getHardMF()[0];
         hardMale=tf.getHardMF()[1];
-        start();
     }
     public void buttonTriggered(String loser){
         if (loser.equals(man)) {
@@ -50,13 +49,6 @@ public class Game {
         female = femaleName.toLowerCase();
     }
 
-    public void start() {
-
-
-            System.out.println("Wer hat verloren?");
-
-
-    }
 
 
     private void getMaleTask() {
@@ -65,11 +57,13 @@ public class Game {
         if (config == PlayerConfig.ALCCLOTHED) {
             if(chooseAlcClothed()==1) { // checks if Tasks needs to be delivered or different path -> e.g. shots
                 current = softMale.get(r.nextInt(softMale.size()));
+                gui.display(current.getContent());
                 System.out.println(current.getContent());
                 checkOnce(current,0);
             }
         }else if(config==PlayerConfig.ALCNAKED){
             current=hardMale.get(r.nextInt(hardMale.size()));
+            gui.display(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
             System.out.println(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
             checkOnce(current,3);
         }

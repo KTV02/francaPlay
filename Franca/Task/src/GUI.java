@@ -52,10 +52,12 @@ public class GUI implements ActionListener {
 
         createUIComponents();
         main.add(design);
-        design.add(maleLost);
-        design.add(femaleLost);
         design.add(input);
         design.add(display);
+        design.add(maleLost);
+        design.add(femaleLost);
+
+
         design.add(switchMode);
         main.setSize(screenSize.width/2,screenSize.height/6);
         //main.pack();
@@ -83,18 +85,22 @@ public class GUI implements ActionListener {
             cycle(game.getFemale());
         } else if (e.getSource() == switchMode) {
             //cycle trough modes by pressing switchMode Button repeatedly
+            System.out.println(game.getMode());
             if (game.getMode() == PlayerConfig.ALCCLOTHED) {
                 game.setMode(PlayerConfig.ALCNAKED);
-                System.out.println("ʕ•┏ل͜┓•ʔ");
+                display("Sexy");
             }
-            if (game.getMode() == PlayerConfig.ALCNAKED) {
+            else if (game.getMode() == PlayerConfig.ALCNAKED) {
                 game.setMode(PlayerConfig.NOALCCLOTHED);
+                display.setText("Under Construction 1");
             }
-            if (game.getMode() == PlayerConfig.NOALCCLOTHED) {
+            else if (game.getMode() == PlayerConfig.NOALCCLOTHED) {
                 game.setMode(PlayerConfig.NOALCNAKED);
+                display.setText("Under Construction 2");
             }
-            if (game.getMode() == PlayerConfig.NOALCCLOTHED) {
+            else if (game.getMode() == PlayerConfig.NOALCNAKED) {
                 game.setMode(PlayerConfig.ALCCLOTHED);
+                display("Normal");
             }
     }else if(e.getSource()==input){
             if(game.getMale()==null) {
@@ -108,7 +114,6 @@ public class GUI implements ActionListener {
                 femaleLost.setText(name);
             }
         }
-        //design.revalidate();
     }
 
     public void cycle(String loser) {
