@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Game {
     Scanner s = new Scanner(System.in);
     String man;
-    String woman;
+    String female;
     PlayerConfig config = PlayerConfig.ALCCLOTHED;
     LinkedList<ThirdTask> softMale;
     LinkedList<ThirdTask> softFemale;
@@ -21,15 +21,14 @@ public class Game {
         softFemale = tf.getSoftMF()[0];
         hardFemale=tf.getHardMF()[0];
         hardMale=tf.getHardMF()[1];
-        initNames();
         start();
     }
     public void buttonTriggered(String loser){
         if (loser.equals(man)) {
             System.out.println("Tja "+man+" dann mal los:");
             getMaleTask();
-        } else if (loser.equals(woman)) {
-            System.out.println("Tja "+woman+" dann mal los:");
+        } else if (loser.equals(female)) {
+            System.out.println("Tja "+ female +" dann mal los:");
             getFemaleTask();
         }
 
@@ -38,15 +37,17 @@ public class Game {
         return man;
     }
     public String getFemale(){
-        return woman;
+        return female;
     }
 
-    public void initNames(){
-        System.out.println("Name des Bois");
-        man = s.nextLine().toLowerCase();
-        System.out.println("Name des Gurls");
-        woman = s.nextLine().toLowerCase();
+    public void setMale(String maleName){
+        man = maleName.toLowerCase();
 
+
+
+    }
+    public void setFemale(String femaleName){
+        female = femaleName.toLowerCase();
     }
 
     public void start() {
