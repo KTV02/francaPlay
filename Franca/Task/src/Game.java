@@ -19,40 +19,42 @@ public class Game {
         softFemale = tf.getSoftMF()[0];
         hardFemale=tf.getHardMF()[0];
         hardMale=tf.getHardMF()[1];
+        initNames();
         start();
     }
+    public void buttonTriggered(String loser){
+        if (loser.equals(man)) {
+            System.out.println("Tja "+man+" dann mal los:");
+            getMaleTask();
+        } else if (loser.equals(woman)) {
+            System.out.println("Tja "+woman+" dann mal los:");
+            getFemaleTask();
+        }
 
-    public void start() {
-        boolean running = true;
+    }
+    public String getMale(){
+        return man;
+    }
+    public String getFemale(){
+        return woman;
+    }
+
+    public void initNames(){
         System.out.println("Name des Bois");
         man = s.nextLine().toLowerCase();
         System.out.println("Name des Gurls");
         woman = s.nextLine().toLowerCase();
-        while (running) {
-            System.out.println("Wer hat verloren?");
-            String input = s.nextLine().toLowerCase();
-            if (input.equals("exit")) {
-                System.out.println("Viel Spaß");
-                running = false;
-            } else if (input.contains("nackt")) {
-                if(config==PlayerConfig.ALCCLOTHED)
-                config = PlayerConfig.ALCNAKED;
-                else if(config==PlayerConfig.NOALCCLOTHED)
-                    config= PlayerConfig.NOALCNAKED;
-                System.out.println("sexy");
-            }
-            // Either man or woman has lost previous game -> chooses target of next task
-            if (input.equals(man)) {
-                System.out.println("Tja "+man+" dann mal los:");
-                getMaleTask();
-            } else if (input.equals(woman)) {
-                System.out.println("Tja "+woman+" dann mal los:");
-                getFemaleTask();
-            }
 
-
-        }
     }
+
+    public void start() {
+
+
+            System.out.println("Wer hat verloren?");
+
+
+    }
+
 
     private void getMaleTask() {
         Random r = new Random();
@@ -109,8 +111,11 @@ public class Game {
         }
 
     }
-    public void changeMode(PlayerConfig update){
+    public void setMode(PlayerConfig update){
         config=update;
+    }
+    public PlayerConfig getMode(){
+        return config;
     }
 
     private int chooseAlcClothed() {
