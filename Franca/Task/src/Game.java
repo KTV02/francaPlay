@@ -60,9 +60,8 @@ public class Game {
         AbstractTask current;
         if (config == PlayerConfig.ALCCLOTHED) {
             if (chooseAlcClothed() == 1) { // checks if Tasks needs to be delivered or different path -> e.g. shots
-
-                if (1 >= softMale.size())
-                    softMale.add(new ThirdTask(false, true, 1, false, "Taskliste Male ist leer!"));
+                if (softMale.size()==0)
+                    softMale.add(new ThirdTask(false, true, 1, false, "strip naked"));
                 int random = r.nextInt(softMale.size());
                 current = softMale.get(random);
                 gui.display(current.getContent());
@@ -72,7 +71,7 @@ public class Game {
         } else if (config == PlayerConfig.ALCNAKED) {
 
 
-            if (1 >= hardMale.size())
+            if (hardMale.size()==0)
                 hardMale.add(new HardcoreTask(false, true, 1, false, "Hardcoretaskliste Male leer!", "0 Sek"));
             int random = r.nextInt(hardMale.size());
             current = hardMale.get(random);
@@ -90,8 +89,13 @@ public class Game {
         if (config == PlayerConfig.ALCCLOTHED) {
             if (chooseAlcClothed() == 1)  // checks if Tasks needs to be delivered or different path -> e.g. shots
             {
-                if (1 >= softFemale.size()) ;
-                softFemale.add(new ThirdTask(true, false, 1, false, "Taskliste Female leer!!"));
+
+                System.out.println("Soft Female Size: "+softFemale.size());
+                if (softFemale.size()==0)
+                {
+                    System.out.println("softFemale empty "+softFemale.size());
+                    softFemale.add(new ThirdTask(true, false, 1, false, "strip naked"));
+                }
                 int random = r.nextInt(softFemale.size());
 
                 current = softFemale.get(random);
@@ -101,8 +105,7 @@ public class Game {
             }
 
         } else if (config == PlayerConfig.ALCNAKED) {
-
-            if (1 >= hardFemale.size())
+            if (hardFemale.size()==0)
                 hardFemale.add(new HardcoreTask(true, false, 1, false, "Hardcore Taskliste Female leer!!", "0 Sekunden"));
             int random = r.nextInt(hardFemale.size());
             current = hardFemale.get(random);
@@ -119,12 +122,15 @@ public class Game {
                 case (0):
                     if (!softMale.isEmpty())
                         softMale.remove(check);
+                        break;
                 case (1):
                     if (!softFemale.isEmpty())
                         softFemale.remove(check);
+                        break;
                 case (2):
                     if (!hardMale.isEmpty())
                         hardMale.remove(check);
+                        break;
                 case (3):
                     if (!hardFemale.isEmpty())
                         hardFemale.remove(check);
