@@ -19,6 +19,7 @@ public class TaskFiller {
      * @since 18.01.2021
      */
 
+    //this code is suicidal
     private LinkedList<AbstractTask> fillFromFile(String path) {
         //extracting all Tasks from ThirdTasks.txt and converting them into ThirdTask Objects
         LinkedList<AbstractTask> taskList = new LinkedList<>();
@@ -114,9 +115,11 @@ public class TaskFiller {
             Scanner myReader = new Scanner(myObj);
             String data = "";
             while (myReader.hasNextLine()) {
-                data = myReader.nextLine();
+                data =data+ myReader.nextLine();
             }
             myReader.close();
+            data=data.trim();
+            System.out.println("Anfang"+data+"Ende");
             return data;
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred while reading the thirdFile textfile!!!");

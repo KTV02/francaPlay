@@ -74,7 +74,13 @@ public class GUI implements ActionListener {
         while (game.getFemale() == null)
             display.setText("Namen der Frau eingeben");
         display.setText("Wer hat verloren?");
-        input.setVisible(false);
+        dynamicShift();
+
+    }
+    private void dynamicShift(){
+        design.remove(input);
+        design.repaint();
+
     }
 
     public void actionPerformed(ActionEvent e) {
