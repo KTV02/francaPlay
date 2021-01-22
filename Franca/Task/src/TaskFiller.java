@@ -8,6 +8,8 @@ import java.util.Scanner;
 public class TaskFiller {
     private String thirdTaskFile = "thirdTasks.txt";
     private String hardcoreFile =  "hardcoreTasks.txt";
+    private boolean softInitialized;
+    private boolean hardInitialized;
 
     public TaskFiller() {
 
@@ -65,28 +67,34 @@ public class TaskFiller {
             //verified if contains all parameters -> prevents empty Tasks from being created
 
         }
+        for(AbstractTask t:taskList){
+            System.out.println("contents: "+ t.getContent());
+        }
 
         return taskList;
     }
 
     public LinkedList<ThirdTask>[] getSoftMF() {
-        LinkedList<AbstractTask> all;
-        LinkedList<ThirdTask> male= new LinkedList<>();
-        LinkedList<ThirdTask> female= new LinkedList<>();
-        all = fillFromFile(thirdTaskFile);
-        for (AbstractTask temp : all) {
-            if (temp.getM()) {
-                male.add((ThirdTask) temp);
-            }if(temp.getF()){
-                System.out.println("FEmale");
-                female.add((ThirdTask) temp);
-            }
+            LinkedList<AbstractTask> all;
+            LinkedList<ThirdTask> male = new LinkedList<>();
+            LinkedList<ThirdTask> female = new LinkedList<>();
+            all = fillFromFile(thirdTaskFile);
+            for (AbstractTask temp : all) {
+                if (temp.getM()) {
+                    male.add((ThirdTask) temp);
+                }
+                if (temp.getF()) {
+                    System.out.println("FEmale");
+                    female.add((ThirdTask) temp);
+                }
 
+            }
+            LinkedList<ThirdTask>[] mf = new LinkedList[2];
+            mf[1] = male;
+            mf[0] = female;
+            return mf;
         }
-        LinkedList<ThirdTask>[] mf= new LinkedList[2];
-        mf[1]=male; mf[0]=female;
-        return mf;
-    }
+
     public LinkedList<HardcoreTask>[] getHardMF(){
         LinkedList<AbstractTask> all;
         LinkedList<HardcoreTask> male= new LinkedList<>();

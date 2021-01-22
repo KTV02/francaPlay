@@ -17,55 +17,68 @@ public class Game {
     public Game(GUI g) {
         gui = g;
         tf = new TaskFiller();
-        softMale = tf.getSoftMF()[1];
-        softFemale = tf.getSoftMF()[0];
-        hardFemale=tf.getHardMF()[0];
-        hardMale=tf.getHardMF()[1];
+        LinkedList[] softTemp = tf.getSoftMF();
+        LinkedList[] hardTemp = tf.getHardMF();
+        softMale = softTemp[1];
+        softFemale = softTemp[0];
+        hardFemale = hardTemp[0];
+        hardMale = hardTemp[1];
     }
-    public void buttonTriggered(String loser){
+
+    public void buttonTriggered(String loser) {
         if (loser.equals(man)) {
-            System.out.println("Tja "+man+" dann mal los:");
+            System.out.println("Tja " + man + " dann mal los:");
             getMaleTask();
         } else if (loser.equals(female)) {
-            System.out.println("Tja "+ female +" dann mal los:");
+            System.out.println("Tja " + female + " dann mal los:");
             getFemaleTask();
         }
 
     }
-    public String getMale(){
+
+    public String getMale() {
         return man;
     }
-    public String getFemale(){
+
+    public String getFemale() {
         return female;
     }
 
-    public void setMale(String maleName){
+    public void setMale(String maleName) {
         man = maleName.toLowerCase();
 
 
-
     }
-    public void setFemale(String femaleName){
+
+    public void setFemale(String femaleName) {
         female = femaleName.toLowerCase();
     }
-
 
 
     private void getMaleTask() {
         Random r = new Random();
         AbstractTask current;
         if (config == PlayerConfig.ALCCLOTHED) {
-            if(chooseAlcClothed()==1) { // checks if Tasks needs to be delivered or different path -> e.g. shots
-                current = softMale.get(r.nextInt(softMale.size()));
+            if (chooseAlcClothed() == 1) { // checks if Tasks needs to be delivered or different path -> e.g. shots
+
+                if (1 >= softMale.size())
+                    softMale.add(new ThirdTask(false, true, 1, false, "Taskliste Male ist leer!"));
+                int random = r.nextInt(softMale.size());
+                current = softMale.get(random);
                 gui.display(current.getContent());
                 System.out.println(current.getContent());
-                checkOnce(current,0);
+                checkOnce(current, 0);
             }
-        }else if(config==PlayerConfig.ALCNAKED){
-            current=hardMale.get(r.nextInt(hardMale.size()));
-            gui.display(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
-            System.out.println(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
-            checkOnce(current,3);
+        } else if (config == PlayerConfig.ALCNAKED) {
+
+
+            if (1 >= hardMale.size())
+                hardMale.add(new HardcoreTask(false, true, 1, false, "Hardcoretaskliste Male leer!", "0 Sek"));
+            int random = r.nextInt(hardMale.size());
+            current = hardMale.get(random);
+            gui.display(current.getContent() + " fuer " + ((HardcoreTask) current).getDuration());
+            System.out.println(current.getContent() + " fuer " + ((HardcoreTask) current).getDuration());
+            checkOnce(current, 2);
         }
 
 
@@ -75,45 +88,56 @@ public class Game {
         Random r = new Random();
         AbstractTask current;
         if (config == PlayerConfig.ALCCLOTHED) {
-            if(chooseAlcClothed()==1)  // checks if Tasks needs to be delivered or different path -> e.g. shots
+            if (chooseAlcClothed() == 1)  // checks if Tasks needs to be delivered or different path -> e.g. shots
             {
-                current=softFemale.get(r.nextInt(softFemale.size()));
+                if (1 >= softFemale.size()) ;
+                softFemale.add(new ThirdTask(true, false, 1, false, "Taskliste Female leer!!"));
+                int random = r.nextInt(softFemale.size());
+
+                current = softFemale.get(random);
                 gui.display(current.getContent());
                 System.out.println(current.getContent());
-                checkOnce(current,1);
+                checkOnce(current, 1);
             }
 
-        }else if(config==PlayerConfig.ALCNAKED){
-            current=hardFemale.get(r.nextInt(hardFemale.size()));
-            gui.display(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
-            System.out.println(current.getContent()+" fuer "+((HardcoreTask) current).getDuration());
-            checkOnce(current,3);
+        } else if (config == PlayerConfig.ALCNAKED) {
+
+            if (1 >= hardFemale.size())
+                hardFemale.add(new HardcoreTask(true, false, 1, false, "Hardcore Taskliste Female leer!!", "0 Sekunden"));
+            int random = r.nextInt(hardFemale.size());
+            current = hardFemale.get(random);
+            gui.display(current.getContent() + " fuer " + ((HardcoreTask) current).getDuration());
+            System.out.println(current.getContent() + " fuer " + ((HardcoreTask) current).getDuration());
+            checkOnce(current, 3);
         }
 
     }
-    private void checkOnce(AbstractTask check,int list){
-        if(check.isOnce()){
-            switch (list){
-                case(0):
-                    if(!softMale.isEmpty())
-                    softMale.remove(check);
-                case(1):
-                    if(!softFemale.isEmpty())
-                    softFemale.remove(check);
-                case(2):
-                    if(!hardMale.isEmpty())
-                    hardMale.remove(check);
-                case(3):
-                    if(!hardFemale.isEmpty())
-                    hardFemale.remove(check);
+
+    private void checkOnce(AbstractTask check, int list) {
+        if (check.isOnce()) {
+            switch (list) {
+                case (0):
+                    if (!softMale.isEmpty())
+                        softMale.remove(check);
+                case (1):
+                    if (!softFemale.isEmpty())
+                        softFemale.remove(check);
+                case (2):
+                    if (!hardMale.isEmpty())
+                        hardMale.remove(check);
+                case (3):
+                    if (!hardFemale.isEmpty())
+                        hardFemale.remove(check);
             }
         }
 
     }
-    public void setMode(PlayerConfig update){
-        config=update;
+
+    public void setMode(PlayerConfig update) {
+        config = update;
     }
-    public PlayerConfig getMode(){
+
+    public PlayerConfig getMode() {
         return config;
     }
 
@@ -128,7 +152,7 @@ public class Game {
             System.out.println("Trinke einen Shot!");
             return 0;
 
-        } else{
+        } else {
             gui.display("Ziehe ein Kleidungsstück aus");
             System.out.println("Ziehe ein Kleidungsstück aus");
             return 0;
