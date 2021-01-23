@@ -94,15 +94,15 @@ public class GUI implements ActionListener {
             System.out.println(game.getMode());
             if (game.getMode() == PlayerConfig.ALCCLOTHED) {
                 game.setMode(PlayerConfig.ALCNAKED);
-                display("Sexy");
+                display("Sexy Alk");
             }
             else if (game.getMode() == PlayerConfig.ALCNAKED) {
                 game.setMode(PlayerConfig.NOALCCLOTHED);
-                display.setText("Under Construction 1");
+                display.setText("Langweiler");
             }
             else if (game.getMode() == PlayerConfig.NOALCCLOTHED) {
                 game.setMode(PlayerConfig.NOALCNAKED);
-                display.setText("Under Construction 2");
+                display.setText("sexyyy");
             }
             else if (game.getMode() == PlayerConfig.NOALCNAKED) {
                 game.setMode(PlayerConfig.ALCCLOTHED);
